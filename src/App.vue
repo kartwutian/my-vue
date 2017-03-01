@@ -1,5 +1,5 @@
 <template>
-  <div id="app" >
+  <div id="app" @touchstart="startX" @touchmove="endX" @touchend="slide" @mousedown="pcStartX" @mousemove="pcEndX" @mouseup="pcSlide">
     <!-- <img src="./assets/logo.png" class="logo"> -->
     <!-- <router-view></router-view> -->
 
@@ -40,7 +40,11 @@ export default {
       currentComponent: 'avatar',
       styleObj: {
         marginRight: marginR+'px'
-      }
+        
+
+      },
+      x1: 0,
+      x2: 0
     }
   },
   
@@ -54,7 +58,7 @@ export default {
   },
   methods: {
     nextPage: function(){
-      console.log(this.allComponents.indexOf(this.currentComponent))
+      
 
       if(this.allComponents.indexOf(this.currentComponent) == this.allComponents.length-1){
         this.currentComponent = this.allComponents[0]
@@ -64,7 +68,7 @@ export default {
       
     }, 
     upPage: function(){
-      console.log(this.allComponents.indexOf(this.currentComponent))
+      // console.log(this.allComponents.indexOf(this.currentComponent))
 
       if(this.allComponents.indexOf(this.currentComponent) == 0 ){
         this.currentComponent = this.allComponents[this.allComponents.length-1]
@@ -72,37 +76,53 @@ export default {
         this.currentComponent = this.allComponents[this.allComponents.indexOf(this.currentComponent)-1]
       }
       
-    } 
-  },
-  mounted: function(){
-    console.log(this.$root.$el)
-    var startX , endX, len ;
-    var _this = this
-    this.$root.$el.ontouchstart = function(e){
-      // console.log(e.targetTouches[0].clientX)
-      startX = e.targetTouches[0].clientX
-    }
-    // this.$root.$el.ontouchend = function(e){
-    //   console.log(e)
-    // }
-    this.$root.$el.ontouchmove = function(e){
-      // console.log(e.targetTouches[0].clientX)
-      endX = e.targetTouches[0].clientX
-      len = endX-startX
-      // console.log(endX-startX)
-    }
+    },
+    startX: function(e){
+      console.log(e.targetTouches[0].clientX)
+      this.x1 = e.targetTouches[0].clientX
+      this.x2 = e.targetTouches[0].clientX
+    },
+    endX: function(e){
+      // console.log(e)
+      this.x2 = e.targetTouches[0].clientX
+    },
+    slide: function(){
+      var len = this.x2-this.x1
+      console.log(this.x2,this.x1,len)
+      
 
-    this.$root.$el.ontouchend = function(){
-      if(len < -20){
-        _this.upPage();
-        startX = 0
-        endX = 0
-        len = 0
-      }else if(len > 20) {
-        _this.nextPage();
-        startX = 0
-        endX = 0
-        len = 0
+      if( len < -50 ){
+        this.nextPage()
+        this.x1 = 0
+        this.x2 = 0
+      }else if ( len > 50 ){
+        this.upPage()
+        this.x1 = 0
+        this.x2 = 0
+      }
+    },
+    pcStartX: function(e){
+      console.log(e)
+      this.x1 = e.clientX
+      this.x2 = e.clientX
+    },
+    pcEndX: function(e){
+      this.x2 = e.clientX
+    },
+    pcSlide: function(e){
+      console.log(e)
+      var len = this.x2-this.x1
+      console.log(this.x2,this.x1,len)
+      
+
+      if( len < -50 ){
+        this.nextPage()
+        this.x1 = 0
+        this.x2 = 0
+      }else if ( len > 50 ){
+        this.upPage()
+        this.x1 = 0
+        this.x2 = 0
       }
     }
   }

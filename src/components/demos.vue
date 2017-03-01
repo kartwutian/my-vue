@@ -4,10 +4,11 @@
     <div>
       <ul>
         <li>
-          <a href="https://kartwutian.github.io/canvas-demos/canvas-demo44.html">
-            一个canvas demo，点击图片，显示放大镜，pc上查看
+          <a href="https://kartwutian.github.io/prizeGetDemo/html/prize-draw.html">
+            用mvc写的一个抽奖demo
           </a>
         </li>
+        
         <li>
           <a href="https://kartwutian.github.io/re-work/html/re-index.html">
             一个仿轻松筹的移动web首页
@@ -24,6 +25,11 @@
           </a>
         </li>
         
+        <li>
+          <a href="https://kartwutian.github.io/canvas-demos/canvas-demo44.html">
+            一个canvas demo，点击图片，显示放大镜，pc上查看
+          </a>
+        </li>
       </ul>
     </div>
   </div>
